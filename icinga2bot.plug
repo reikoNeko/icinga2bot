@@ -1,0 +1,12 @@
+[Core]
+module = icinga2bot
+name = icinga2bot
+
+[Documentation]
+description = Use errbot to talk to an Icinga2 monitoring server.
+
+[Python]
+version = 3
+
+[Errbot]
+
