@@ -41,6 +41,7 @@ From the Icinga2 side, the bot will relay the following events to the chat chann
 * Comments
 * Problem acknowledgments 
 * Notifications sent to a mailing list
+* Downtime start, stop, and definition
 
 The easiest way to test these features is to add or remove a comment from an existing host.
 
