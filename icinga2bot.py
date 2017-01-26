@@ -166,8 +166,8 @@ def state(e):
     else:
         change="CHANGED"
 
-    return "{0} on {1}: {2}".format(
-      change, e["host"], e.get("service","host"))
+    return "{0} {1} on {2}: {3}".format(
+      e.get("service","host"), change, e["host"], e["check_result"]["output"])
 
 def nice_event(event):
     ''' Parse json objects returned by icinga into chat-friendly text.'''
