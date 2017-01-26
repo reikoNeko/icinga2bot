@@ -131,6 +131,24 @@ def notification(e):
     return "Notice of {0} on {1} sent to {2}".format(
       e["notification_type"], e["host"], e["users"].join(", "))
 
+def downservice(d):
+    try:
+        return "{0} ({1})".format(d["host_name"], d["service_name"])
+    except KeyError:
+        return e["hostname"]
+        
+def downadd(e):
+    d = e["downtime"]
+    duration = str(timedelta(seconds=int(d["end_time"] - d["start_time"])))
+    return "{0} has scheduled downtime for {1} lasting {2} because {3}".format(
+      d["author"], downservice(d), duration, d["comment"] )
+      
+def downtrigger(e):
+    return downservice(e["downtime"]) + " downtime has begun."
+
+def downrm(e):
+    return downservice(e["downtime"]) + " downtime has ended."
+
 def state(e):
     before = e['check_result']['vars_before']
     after  = e['check_result']['vars_after']
@@ -160,6 +178,9 @@ def nice_event(event):
         'AcknowledgementSet': ack,
         'AcknowledgementCleared': ackrm,
         'Notification': notification,
+        'DowntimeAdded': downadd,
+        'DowntimeTriggered': downtrigger,
+        'DowntimeRemoved': downrm,
         }
     return nice[event['type']](event) if event['type'] in nice else event
 
