@@ -129,7 +129,7 @@ def ackrm(e):
 
 def notification(e): 
     return "Notice of {0} on {1} sent to {2}".format(
-      e["notification_type"], e["host"], e["users"].join(", "))
+      e["notification_type"], e["host"], ", ".join(e["users"]))
 
 def downservice(d):
     try:
@@ -166,8 +166,10 @@ def state(e):
     else:
         change="CHANGED"
 
+    service = e.get("service","host")
+    if not service.isupper(): service = service.title() 
     return "{0} {1} on {2}: {3}".format(
-      e.get("service","host"), change, e["host"], e["check_result"]["output"])
+      service, change, e["host"], e["check_result"]["output"])
 
 def nice_event(event):
     ''' Parse json objects returned by icinga into chat-friendly text.'''
