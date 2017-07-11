@@ -4,7 +4,7 @@ icinga2bot is a plugin for errbot that speaks to the Icinga2 API in order to rel
 ## Caveats
 I have learned from users and my own experience that errbot has trouble with Python 3.5 on Ubuntu, and have not yet solved these problems.
 
-Development has been done in Centos 6 with python 3.4 and Errbot version 4.n. I am actively seeking volunteers to help test and port the plugin on other systems.
+Development has been done in Centos 7 with python 3.4 and Errbot version 4.n. I am actively seeking volunteers to help test and port the plugin on other systems.
 
 ## Requirements:
 * Python 3 >= 3.4 
