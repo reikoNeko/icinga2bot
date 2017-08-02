@@ -122,7 +122,7 @@ class HelloWorld(BotPlugin):
         return "Hello, world!"
 ```
 ---
-## 0.8
+## Minimum Viable Monster
 
 * Developed w Python 3.4 on Centos 7
 
