@@ -108,7 +108,7 @@ But there are more steps between here and profit.
 
 * Half my work is done! PROFIT!
 +++
-** s/Half/Twenty percent of/
+s/Half/Twenty percent of/
 +++
 * But seriously, writing plugin commands is pretty easy because it's done in decorators.
 
@@ -140,7 +140,7 @@ class HelloWorld(BotPlugin):
 # IT'S ALIIIIIVE!
 
 +++
-* Unless you're on Debian/Ubuntu.
+Unless you're on Debian/Ubuntu.
 ---
 
 ## To the future!
@@ -155,11 +155,11 @@ class HelloWorld(BotPlugin):
 ---
 ## How to help
 
-* Fork the "refactor" branch (TBB)
+* File bug reports
 
 * Add tests
 
-* File bug reports
+* Fork the "refactor" branch (TBB)
 
 ---
 ## Contact me
