@@ -159,7 +159,7 @@ Unless you're on Debian/Ubuntu.
 
 * Add tests
 
-* Fork the "refactor" branch (TBB)
+* Contribute features to the "refactor" branch (TBB)
 
 ---
 ## Contact me
