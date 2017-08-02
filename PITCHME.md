@@ -36,7 +36,7 @@ Fill your conversations with interruptions about your flaky network!
 
 ## What chatops needs:
 
-* A chat server ''with user authentication''.
+* A chat server *with user authentication*.
 
 * A chatbot that talks to that server and has the ability to add new features.
 
