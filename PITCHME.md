@@ -8,18 +8,6 @@ Fill your conversations with interruptions about your flaky network!
 
 ---
 
-### System administrators
-
-* These are the people who keep the network up and your website answering queries.
-+++
-* Most are customer service oriented, but we have dark dreams...
-
-* ... dreams made famous by "The Bastard Operator from Hell."
-+++
-* Really, we just want things to go smooth.
-
----
-
 ## Chatops
 
 * System administration is often called "Operations"
@@ -32,6 +20,25 @@ Fill your conversations with interruptions about your flaky network!
 +++
 * But we also have "chatops", which lets sysadmins hang out in Jabber, Slack, or IRC without missing important events that happen on their systems, and maybe even solve them without leaving chat!
 
+---
+
+### System administrators
+
+These are the people who keep the network up and your website answering queries.
++++
+Sysadmin on a good day
+![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg)
++++
+Sysadmin on a bad day
+![Barely escaping zombies](http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg)
++++
+Sysadmin on a great day
+![Drinking coffee and reading twitter](http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif)
++++
+* Really, we just want things to go smooth.
++++
+![Kayle fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
+(You thought Mal was going to be here, but Kaylee is the one who keeps things smooth.)
 ---
 
 ## What chatops needs:
