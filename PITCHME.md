@@ -55,7 +55,7 @@ Sysadmin on a great day
 +++
 * A crazy sysadmin willing to put them together.
 
-* Slightly saner sysadmins asking the crazy one when Frankenstein's gonna walk.
+* Slightly saner sysadmins asking the crazy one when the bot will work.
 
 ---
 
@@ -63,7 +63,7 @@ Sysadmin on a great day
 +++
 * My team has a Jabber server we use to communicate.
 +++
-* We switched out monitoring system from Nagios to Icinga2
+* We switched our monitoring system from Nagios to Icinga2
 +++
 * That broke Nagibot, which used to tell us in chat when things went wrong
 +++
@@ -80,6 +80,8 @@ Sysadmin on a great day
 * It was a godsend--actually a Galstead-send--back in 1999, a web gui that showed you an overview of server health and alerted you when things were in trouble.
 +++
 * Not just up/down, but could apply warning threshholds.
+
+![Nagios status sample](http://my-plugin.de/wiki/_media/check_multi/examples/multi_feeds_passive_sample.png)
 +++
 * In 2009, Nagios split into Nagios Core and Nagios Enterprise; the former is still GPL, but the latter addons were not open-source.
 +++
