@@ -41,8 +41,6 @@ Sysadmin on a great day
 * Really, we just want things to go smooth.
 +++
 ![Kayle fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
-
-(You thought Mal was going to be here, but Kaylee is the one who keeps things smooth).
 ---
 
 ## What chatops needs:
