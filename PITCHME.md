@@ -186,3 +186,7 @@ Unless you're on Debian/Ubuntu.
 * Penth on Freenode (in #plug and #lopsa)
 
 * @LinuxandYarn on Twitter
+---
+## Further Reading
+* https://www.icinga.com/docs/icinga2/latest/doc/12-icinga2-api/
+* http://errbot.io/en/latest/
