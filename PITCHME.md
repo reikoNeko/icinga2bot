@@ -88,8 +88,6 @@ Sysadmin on a great day
 * As a result, developers began forking Nagios and open-sourcing some workalike Enterprise features; Icinga was one of these.
 +++
 * Icinga was a direct fork, Icinga2 is a ground-up rewrite with a new API
-+++
-* Can still use NRPE plugins but is suggesting users run custom checks over SSH instead.
 
 ---
 
@@ -111,10 +109,16 @@ Sysadmin on a great day
 
 But there are more steps between here and profit.
 
-[img: Sad_underpants_gnome.png]
+![Sad_underpants_gnome](https://images.mauldineconomics.com/images/uploads/ttmygh/8499/image/Gnome%2018p_fmt.png)
 
 ---
 
+## JSON is too wordy for chat.
+'''
+'''
+becomes
+''' '''
+---
 ## Errbot
 
 * Errbot is written in python, has a plugin framework, and talks to multiple chat servers.
