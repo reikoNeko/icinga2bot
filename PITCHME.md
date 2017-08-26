@@ -113,9 +113,13 @@ But there are more steps between here and profit.
 
 ## JSON is too wordy for chat.
 '''
+{"downtime":{"__name":"dbcow22!icinga.local-1493430143-4","author":"dbadmin","comment":"DB Tablespace Maintenance","config_owner":"","duration":0.0,"end_time":1493606512.0,"entry_time":1493430143.8262829781,"fixed":true,"host_name":"dbcow22","legacy_id":4.0,"name":"icinga.local-1493430143-4","package":"_api","scheduled_by":"","service_name":"","start_time":1493430112.0,"templates":["icinga.local-1493430143-4"],"trigger_time":0.0,"triggered_by":"","triggers":[],"type":"Downtime","version":1493430143.8263230324,"was_cancelled":false,"zone":""},"timestamp":1493430143.8306179047,"type":"DowntimeAdded"}
 '''
+
 becomes
-''' '''
+
+''' dbadmin has scheduled downtime for dbcow22 lasting 2 days, 1:00:00 because DB Tablespace Maintenance 
+'''
 ---
 ## Errbot
 
