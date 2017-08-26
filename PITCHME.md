@@ -130,7 +130,8 @@ But there are more steps between here and profit.
 becomes
 
 ``` 
-dbadmin has scheduled downtime for dbcow22 lasting 2 days, 1:00:00 because DB Tablespace Maintenance 
+dbadmin has scheduled downtime for dbcow22 lasting 2 days, 
+1:00:00 because DB Tablespace Maintenance 
 ```
 ---
 ## Errbot
