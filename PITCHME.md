@@ -23,24 +23,30 @@ Fill your conversations with interruptions about your flaky network!
 ---
 
 ### System administrators
-
-These are the people who keep the network up and your website answering queries.
+are the people who keep the network up and your website answering queries.
 +++
+
 Sysadmin on a good day
-
 ![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg)
+
 +++
+
 Sysadmin on a bad day
-
 ![Barely escaping zombies](http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg)
-+++
-Sysadmin on a great day
 
++++
+
+Sysadmin on a great day
 ![Drinking coffee and reading twitter](http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif)
+
 +++
+
 * Really, we just want things to go smooth.
+
 +++
+
 ![Kayle fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
+Engineers, not captains, make things go smooth.
 ---
 
 ## What chatops needs:
@@ -50,7 +56,9 @@ Sysadmin on a great day
 * A chatbot that talks to that server and has the ability to add new features.
 
 * A monitoring system with a decent API (Application Programming Interface).
+
 +++
+
 * A crazy sysadmin willing to put them together.
 
 * Slightly saner sysadmins asking the crazy one when the bot will work.
@@ -73,30 +81,38 @@ Sysadmin on a great day
 
 ## From Nagios to Icinga2: A Brief History
 
-* Nagios begain as NetSaint, but the name was challenged over a similar trademark, so became Nagios
+* Nagios was a godsend--actually a Galstead-send--back in 1999, a web gui that showed you an overview of server health and alerted you when things were in trouble.
+
 +++
-* It was a godsend--actually a Galstead-send--back in 1999, a web gui that showed you an overview of server health and alerted you when things were in trouble.
-+++
+
 * Not just up/down, but could apply warning threshholds.
 
 ![Nagios status sample](http://my-plugin.de/wiki/_media/check_multi/examples/multi_feeds_passive_sample.png)
+
 +++
+
 * In 2009, Nagios split into Nagios Core and Nagios Enterprise; the former is still GPL, but the latter addons were not open-source.
+
 +++
+
 * As a result, developers began forking Nagios and open-sourcing some workalike Enterprise features; Icinga was one of these.
+
 +++
+
 * Icinga was a direct fork, Icinga2 is a ground-up rewrite with a new API
 
 ---
 
-## API, check!
+## So we have an API!
 
-* The Icinga2 API receives REST calls over HTTPS and returns JSON. 
+* The Icinga2 API sends and receives JSON over HTTPS. 
 
 * Accepts comments and commands
 
 * Provides an event stream of all the check results and state changes
+
 +++
+
 * Sample Python code in icinga.org documentation
 
 * Wait, was that Step 2? PROFIT!
@@ -153,14 +169,15 @@ class HelloWorld(BotPlugin):
         """Say hello to the world"""
         return "Hello, world!"
 ```
+
 ---
 ## Minimum Viable Monster
 
-* Developed w Python 3.4 on Centos 7
+* Developed with Python 3.4 on Centos 7
 
 * Tested IN PRODUCTION!
 
-* Shoemaker's children got no test box
+* Because the shoemaker's children got no test box
 
 * One monolitic python file
 
@@ -191,17 +208,20 @@ Unless you're on Debian/Ubuntu.
 
 * Add tests
 
-* Contribute features to the "refactor" branch (TBB)
+* Contribute features to the "refactor" branch at https://github.com/reikoNeko/icinga2bot
+
+---
+## Further Reading
+
+* https://www.icinga.com/docs/icinga2/latest/doc/12-icinga2-api/
+
+* http://errbot.io/en/latest/
 
 ---
 ## Contact me
 
-* https://github.com/reikoNeko/icinga2bot
-
-* Penth on Freenode (in #plug and #lopsa)
+* Penth on Freenode (in #plug, #fosscon and #lopsa)
 
 * @LinuxandYarn on Twitter
----
-## Further Reading
-* https://www.icinga.com/docs/icinga2/latest/doc/12-icinga2-api/
-* http://errbot.io/en/latest/
+
+* https://github.com/reikoNeko/icinga2bot
