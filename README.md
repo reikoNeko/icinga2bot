@@ -8,9 +8,20 @@ Development has been done in Centos 7 with python 3.4 and Errbot version 4.n. I 
 
 ## Requirements:
 * Python 3 >= 3.4 
- * External libraries: requests, urllib3
+* External libraries: requests, urllib3
 * Errbot from http://errbot.io/en/latest/index.html
 * An Icinga2 instance and access to the API 
+
+### Centos 7 requirements:
+* Epel Repo in order to get Python 3.4
+* Epel packages: python34 python34-tools python34-devel
+* Compiler and libraries to build errbot: gcc, glibc-devel, libffi-devel, openssl-devel
+* As errbot user:
+```
+ virtualenv -p python3.4 err
+ err/bin/pip install -U setuptools
+ err/bin/pip install errbot
+```
 
 ## Installation Prerequisites
 
