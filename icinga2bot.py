@@ -225,14 +225,13 @@ def i2events(self, events=cfg['events'], url=api_url):
             return("No connection to Icinga API.")
 
 
-
 class Icinga2bot(BotPlugin):
     """
     Use errbot to talk to an Icinga2 monitoring server.
     """
 
-    def __init__(self, bot):
-     super().__init__(bot)
+    def __init__(self, bot, name):
+     super().__init__(bot, name)
      self.stop_thread = threading.Event()
 
     def report_events(self):
