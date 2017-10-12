@@ -245,13 +245,19 @@ class Icinga2bot(BotPlugin):
             for line in queue:
                 self.send(self.room,line)
                 botlog.info(line)
-
+                
+    def homeroom(self):
+        try:
+            homeroom = self.bot_config.CHATROOM_PRESENCE[0]
+        except IndexError:
+            homeroom = ''
+        return(homeroom)
 
     def activate(self):
         """
         Triggers on plugin activation
         """
-        self.room = self.query_room(self.bot_config.CHATROOM_PRESENCE[0])
+        self.room = self.query_room(self.homeroom())
         #self.stop_thread = threading.Event()
         self.thread = threading.Thread(target = self.report_events)
         self.thread.setDaemon(True)
@@ -282,7 +288,7 @@ class Icinga2bot(BotPlugin):
     @botcmd
     def i2status(self, msg, args):
         '''Return a summary of host and service states.'''
-        room = self.query_room(self.bot_config.CHATROOM_PRESENCE[0])
+        room = self.query_room(self.homeroom())
         i2stat = i2session.get(api_url+"/status").json()
         botlog.info(i2stat)
         try:
@@ -311,7 +317,7 @@ class Icinga2bot(BotPlugin):
     @arg_botcmd('hostname', type=str)
     def host(self, msg, hostname=None):
         '''Return the current up/down state of a single host and duration.'''
-        room = self.query_room(self.bot_config.CHATROOM_PRESENCE[0])
+        room = self.query_room(self.homeroom())
         if is_valid_hostname(hostname):
             hoststatus = i2session.get(api_url+"/objects/hosts?hosts="+hostname, 
             headers={'X-HTTP-Method-Override':'GET'}
