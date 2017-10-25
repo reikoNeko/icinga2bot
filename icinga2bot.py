@@ -291,23 +291,57 @@ class Icinga2bot(BotPlugin):
         room = self.query_room(self.homeroom())
         i2stat = i2session.get(api_url+"/status").json()
         botlog.info(i2stat)
+        index_cib = ''
+        index_mysql = ''
+        index_pgsql = ''
         try:
-            R = i2stat['results'][1]['status']
+            for i in range(len(i2stat['results'])):
+                if i2stat['results'][i]['name'] == 'CIB':
+                    index_cib = i
+                elif i2stat['results'][i]['name'] == 'IdoMysqlConnection':
+                    index_mysql = i
+                elif i2stat['results'][i]['name'] == 'IdoPgsqlConnection':
+                    index_pgsql = i
+                else:
+                    pass
+
+            db_queries = []
+            if index_mysql != '':
+                for v in range(len(i2stat['results'][index_mysql]['perfdata'])):
+                    if i2stat['results'][index_mysql]['perfdata'][v]['label'] == \
+                            'idomysqlconnection_ido-mysql_queries_1min':
+                        db_queries.append(
+                                str(i2stat['results'][index_mysql]['perfdata']
+                                    [v]['value']) + ' MySQL')
+            if index_pgsql != '':
+                for v in range(len(i2stat['results'][index_pgsql]['perfdata'])):
+                    if i2stat['results'][index_pgsql]['perfdata'][v]['label'] == \
+                            'idopgsqlconnection_ido-pgsql_queries_1min':
+                        db_queries.append(
+                                str(i2stat['results'][index_pgsql]['perfdata']
+                                    [v]['value']) + ' PostgreSQL')
+
+            db_queries_string = ' and '.join(db_queries)
+
+            R = i2stat['results'][index_cib]['status']
             for line in (
               "HOSTS     {0} Up; {1} Down; {2} Unreachable".format(
                 int(R['num_hosts_up']), 
                 int(R['num_hosts_down']), 
-                int(R['num_hosts_unreachable']) ),
+                int(R['num_hosts_unreachable'])
+                ),
               "SERVICES  {0} OK;  {1} Critical; {2} Warning; {3} Unreachable; {4} Unknown".format(
                 int(R['num_services_ok']), 
                 int(R['num_services_critical']), 
                 int(R['num_services_warning']), 
                 int(R['num_services_unreachable']), 
-                int(R['num_services_unknown']) ),
+                int(R['num_services_unknown'])
+                ),
               "Checks per minute:  {0} hosts, {1} services, {2} database queries".format(
                 int(R['active_host_checks_1min']), 
                 int(R['active_service_checks_1min']),
-                int(i2stat['results'][9]['perfdata'][1]['value']) )
+                db_queries_string
+                )
             ):
                 self.send(room,line)
         except:
