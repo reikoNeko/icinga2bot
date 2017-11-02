@@ -114,13 +114,22 @@ def build_dict(seq, key):
 
 # Process API json into chat-friendly strings
 
+def prettyml(t):
+    '''Convert multiline strings into single punctuated line.'''
+    #botlog.debug(str("Received for prettyprinting: "+str(t)))
+    pretty = str(t).replace('\\r\\n','. ').replace('\\n','; ')
+    #botlog.debug("Converted to: "+pretty)
+    return pretty
+
 def comment(e):
+    ctext = prettyml(e["comment"]["text"])
     return "Re: {0}, {1} says: '{2}'.".format(
-      e["comment"]["host_name"], e["comment"]["author"], e["comment"]["text"])
+      e["comment"]["host_name"], e["comment"]["author"], ctext)
     
 def commentrm(e):
+    ctext = prettyml(e["comment"]["text"])
     return "Comment ({0}) removed from {1}".format(
-      e["comment"]["text"], e["comment"]["host_name"])
+      ctext, e["comment"]["host_name"])
     
 def ack(e):
     return "{0} problem on {1} acknowledged by {2}.".format(
@@ -171,8 +180,12 @@ def state(e):
 
     service = e.get("service","host")
     if not service.isupper(): service = service.title() 
+
+    result = prettyml(e["check_result"]["output"])
+
     return "{0} {1} on {2}: {3}".format(
-      service, change, e["host"], e["check_result"]["output"])
+      service, change, e["host"], result)
+
 
 def nice_event(event):
     ''' Parse json objects returned by icinga into chat-friendly text.'''
