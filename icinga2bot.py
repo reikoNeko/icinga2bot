@@ -13,8 +13,6 @@ from time import sleep, time
 from datetime import timedelta
 from urllib3.util.retry import Retry
 
-
-# botlog.setLevel = logging.DEBUG
 logging.basicConfig(filename="/var/log/errbot/icinga2bot.log")
 botlog = logging.getLogger('icinga2bot')
 botlog.setLevel(logging.INFO)
@@ -92,7 +90,7 @@ try:
     botlog.info("Connected to %s.",api_url)
 except (requests.exceptions.ConnectionError,
       requests.packages.urllib3.exceptions.NewConnectionError) as drop:
-    botlog.error("No connection to Icinga API. Error received: "+str(drop))
+    botlog.error("No connection to Icinga API. Error received: {}", str(drop))
     sleep(5)
     pass
 
@@ -108,6 +106,11 @@ def is_valid_hostname(hostname):
         hostname = hostname[:-1] # strip exactly one dot from the right, if present
     allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
     return all(allowed.match(x) for x in hostname.split("."))
+
+# Props to tokland
+# https://stackoverflow.com/questions/4391697/find-the-index-of-a-dict-within-a-list-by-matching-the-dicts-value
+def build_dict(seq, key):
+    return dict((d[key], dict(d)) for (_, d) in enumerate(seq))
 
 # Process API json into chat-friendly strings
 
@@ -194,6 +197,7 @@ def i2events(self, events=cfg['events'], url=api_url):
     types = [ key for key in events if events.getboolean(key) and key != 'CheckResult' ]
     data = {"types": types, "queue": "errbot_events" }
     botlog.debug("in i2events, thread is "+threading.currentThread().getName())
+    cleanquote = re.compile("\\'")
 
     while not self.stop_thread.is_set():
         try:
@@ -208,7 +212,8 @@ def i2events(self, events=cfg['events'], url=api_url):
                 try:
                     for line in self.stream.iter_lines():
                         botlog.debug('in i2api_request: '+str(line))
-                        text = nice_event( json.loads(line.decode('utf-8')) )
+                        line = cleanquote.sub("",line.decode('utf-8'))
+                        text = nice_event( json.loads(line) ) 
                         if text is not None:
                             yield(text)
                 except:
@@ -225,7 +230,6 @@ def i2events(self, events=cfg['events'], url=api_url):
             return("No connection to Icinga API.")
 
 
-
 class Icinga2bot(BotPlugin):
     """
     Use errbot to talk to an Icinga2 monitoring server.
@@ -233,8 +237,8 @@ class Icinga2bot(BotPlugin):
     name = 'icinga2bot'
     
     def __init__(self, bot, name):
-     super().__init__(bot, name)
-     self.stop_thread = threading.Event()
+        super().__init__(bot, name)
+        self.stop_thread = threading.Event()
 
     def report_events(self):
         '''Relay events from the Icinga2 API to a chat channel. Not interactive.
@@ -245,7 +249,7 @@ class Icinga2bot(BotPlugin):
             for line in queue:
                 self.send(self.room,line)
                 botlog.info(line)
-                
+
     def homeroom(self):
         try:
             homeroom = self.bot_config.CHATROOM_PRESENCE[0]
@@ -289,10 +293,11 @@ class Icinga2bot(BotPlugin):
     def i2status(self, msg, args):
         '''Return a summary of host and service states.'''
         room = self.query_room(self.homeroom())
-        i2stat = i2session.get(api_url+"/status").json()
-        botlog.info(i2stat)
+        raw = i2session.get(api_url+"/status").json()
+        i2stat = build_dict(raw["results"], 'name')
+        botlog.debug(i2stat)
         try:
-            R = i2stat['results'][1]['status']
+            R = i2stat['CIB']['status']
             for line in (
               "HOSTS     {0} Up; {1} Down; {2} Unreachable".format(
                 int(R['num_hosts_up']), 
@@ -304,10 +309,13 @@ class Icinga2bot(BotPlugin):
                 int(R['num_services_warning']), 
                 int(R['num_services_unreachable']), 
                 int(R['num_services_unknown']) ),
-              "Checks per minute:  {0} hosts, {1} services, {2} database queries".format(
+              #"Checks per minute:  {0} hosts, {1} services, {2} database queries".format(
+                #int(R['active_host_checks_1min']), 
+                #int(R['active_service_checks_1min']),
+                #int(i2stat['results'][9]['perfdata'][1]['value']) )
+              "Checks per minute:  {0} hosts, {1} services".format(
                 int(R['active_host_checks_1min']), 
-                int(R['active_service_checks_1min']),
-                int(i2stat['results'][9]['perfdata'][1]['value']) )
+                int(R['active_service_checks_1min']) )
             ):
                 self.send(room,line)
         except:
