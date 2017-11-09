@@ -2,7 +2,7 @@ This is a work in progress.
 icinga2bot is a plugin for errbot that speaks to the Icinga2 API in order to relay messages to and from a chat channel. 
 
 ## Caveats
-I have learned from users and my own experience that errbot has trouble with Python 3.5 on Ubuntu, and have not yet solved these problems.
+After learning that errbot 4 had trouble with Python 3.5 on Ubuntu, I decided to support only Errbot version 5.x.
 
 Principal development has been done in Centos 7 with python 3.4 and Errbot version 4.1.3, moved to Errbot 5.1.2 on September 25, 2017. I am actively seeking volunteers to help test and port the plugin on other systems.
 
