@@ -190,12 +190,12 @@ class HelloWorld(BotPlugin):
 ## Frankenstein says what?
 # IT'S ALIIIIIVE!
 
-![Dance, monster, dance!]{https://zippy.gfycat.com/SleepyNaiveCutworm.mp4}
+![Dance, monster, dance!](https://zippy.gfycat.com/SleepyNaiveCutworm.mp4)
 
 ---
 # Oops. Here come the villagers. I mean the bugs.
 
-![eyeroll]{https://zippy.gfycat.com/EcstaticWarlikeHoiho.mp4}
+![eyeroll](https://zippy.gfycat.com/EcstaticWarlikeHoiho.mp4)
 
 ---
 ## Monster on the move
@@ -209,7 +209,7 @@ class HelloWorld(BotPlugin):
 ---
 ## Got a friend, a victim, a friend!
 
-![User response]{https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg}
+![User response](https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg)
 
 Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug reports!
 
@@ -221,7 +221,7 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 
 ---
 * I still have trouble understanding Python threads.
-![Obligatory cat picture]{https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg}
+![Obligatory cat picture](https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg)
 ---
 ## To the future!
 
@@ -237,7 +237,7 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 
 * File bug reports
 
-* Add tests
+* Add tests, particularly for Jenkins
 
 * Pull requests at https://github.com/reikoNeko/icinga2bot
 
