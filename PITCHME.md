@@ -188,14 +188,14 @@ class HelloWorld(BotPlugin):
 * But, it works.
 ---
 ## Frankenstein says what?
-# IT'S ALIIIIIVE!
+Give my creation life!
 
-![Dance, monster, dance!](https://zippy.gfycat.com/SleepyNaiveCutworm.mp4)
+![Dance, monster, dance!](http://uploads.neatorama.com/wp-content/uploads/2012/07/YFritz.jpg)
 
 ---
-# Oops. Here come the villagers. I mean the bugs.
+## Oops. Here come the villagers. I mean the bugs.
 
-![eyeroll](https://zippy.gfycat.com/EcstaticWarlikeHoiho.mp4)
+![Reality check](http://cdn.hark.com/images/000/439/892/439892/original.jpg)
 
 ---
 ## Monster on the move
