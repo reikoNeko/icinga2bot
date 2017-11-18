@@ -48,7 +48,7 @@ Sysadmin on a great day
 
 +++
 
-![Kayle fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
+![Kaylee fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
 
 Engineers, not captains, make things go smooth.
 ---
@@ -71,7 +71,7 @@ Engineers, not captains, make things go smooth.
 
 ## Becoming Frankenstein: A Case Study
 +++
-* My team has a Jabber server we use to communicate.
+* My team had a Jabber server which we used to communicate.
 +++
 * We switched our monitoring system from Nagios to Icinga2
 +++
@@ -188,10 +188,41 @@ class HelloWorld(BotPlugin):
 * But, it works.
 ---
 ## Frankenstein says what?
-
 # IT'S ALIIIIIVE!
+
+![Dance, monster, dance!]{https://zippy.gfycat.com/SleepyNaiveCutworm.mp4}
+
+---
+# Oops. Here come the villagers. I mean the bugs.
+
+![eyeroll]{https://zippy.gfycat.com/EcstaticWarlikeHoiho.mp4}
+
+---
+## Monster on the move
+
+* Jabber got dropped in favor of slack -- but errbot supports both!
+
+* Change the errbot config.py file to replace jabber server data with a slack API token
+
+* Bots have to be invited to rooms, so a warning gets logged but nothing tragic.
+
+---
+## Got a friend, a victim, a friend!
+
+![User response]{https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg}
+
+Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug reports!
+
 ---
 
+* Had to upgrade my own version of Errbot because the world had passed the original code by. ("It works on my box" is never enough.)
+* Don't assume all the world is running mysql.
+* Really, really don't assume the order of json fields.
+
+---
+* I still have trouble understanding Python threads.
+![Obligatory cat picture]{https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg}
+---
 ## To the future!
 
 * Currently refactoring to separate icinga from bot code
