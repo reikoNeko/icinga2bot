@@ -25,18 +25,31 @@ botlog.setLevel(logging.INFO)
 # in the INI file.
 
 default_server= OD(( 
-    ('host','localhost'), ('port', '5665'), ('api','v1'),
+    ('host','localhost'), 
+    ('port', '5665'), 
+    ('api','v1'),
     ('ca','/etc/icinga2/pki/ca.crt')
     ))
+
 # ConfigParser normally converts all options to lower case but 
 # the icinga2 API is case sentitive so we'll add optionxform below.
 default_events= OD(( 
-    ('CheckResult', 'off'), ('StateChange', 'on'), ('Notification', 'on'),
-    ('AcknowledgementSet', 'on'), ('AcknowledgementCleared', 'on'),
-    ('CommentAdded', 'on'), ('CommentRemoved', 'on'),
-    ('DowntimeAdded', 'on'), ('DowntimeRemoved', 'on'), ('DowntimeTriggered', 'on')
+    ('CheckResult', 'off'), 
+    ('StateChange', 'on'), 
+    ('Notification', 'on'),
+    ('AcknowledgementSet', 'on'), 
+    ('AcknowledgementCleared', 'on'),
+    ('CommentAdded', 'on'), 
+    ('CommentRemoved', 'on'),
+    ('DowntimeAdded', 'on'), 
+    ('DowntimeRemoved', 'on'), 
+    ('DowntimeTriggered', 'on')
     ))
-default_config = OD(( ('server',default_server), ('events',default_events) ))
+
+default_config = OD(( 
+    ('server',default_server), 
+    ('events',default_events) 
+    ))
 
 cfg = configparser.ConfigParser()
 cfg.optionxform = str  #make options case-sensitive
