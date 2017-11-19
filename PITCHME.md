@@ -146,9 +146,11 @@ dbadmin has scheduled downtime for dbcow22 lasting 2 days,
 ```
 def downadd(e):
     d = e["downtime"]
-    duration = str(timedelta(seconds=int(d["end_time"] - d["start_time"])))
-    return "{0} has scheduled downtime for {1} lasting {2} because {3}".format(
-        d["author"], downservice(d), duration, d["comment"] )
+    duration = str(timedelta(seconds=int(
+      d["end_time"] - d["start_time"])))
+    return "{0} has scheduled downtime for {1} lasting {2} 
+      because {3}".format(
+      d["author"], downservice(d), duration, d["comment"])
 ```
 ---
 ## Errbot
