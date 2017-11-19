@@ -113,21 +113,9 @@ Engineers, not captains, make things go smooth.
 
 * Accepts comments and commands
 
-* Provides an event stream of all the check results and state changes
-
-+++
-
 * Sample Python code in icinga.org documentation
 
-* Wait, was that Step 2? PROFIT!
-
----
-
-## That was Step 2!
-
-But there are more steps between here and profit.
-
-![Sad_underpants_gnome](https://images.mauldineconomics.com/images/uploads/ttmygh/8499/image/Gnome%2018p_fmt.png)
+* Provides an event stream of all the check results and state changes
 
 ---
 
@@ -154,15 +142,20 @@ dbadmin has scheduled downtime for dbcow22 lasting 2 days,
 1:00:00 because DB Tablespace Maintenance 
 ```
 ---
+### And here's the code that does that
+```
+def downadd(e):
+    d = e["downtime"]
+    duration = str(timedelta(seconds=int(d["end_time"] - d["start_time"])))
+    return "{0} has scheduled downtime for {1} lasting {2} because {3}".format(
+        d["author"], downservice(d), duration, d["comment"] )
+```
+---
 ## Errbot
 
 * Errbot is written in python, has a plugin framework, and talks to multiple chat servers.
 
-* Half my work is done! PROFIT!
-+++
-s/Half/Twenty percent of/
-+++
-* But seriously, writing plugin commands is pretty easy because it's done in decorators.
+* Writing plugin commands is pretty easy because it's done in decorators.
 
 ```
 class HelloWorld(BotPlugin):
@@ -183,7 +176,7 @@ class HelloWorld(BotPlugin):
 
 * Because the shoemaker's children got no test box
 
-* One monolitic python file
+* <strike>One monolitic python file</strike>
 
 * But, it works.
 ---
