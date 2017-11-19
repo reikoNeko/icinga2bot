@@ -1,23 +1,44 @@
+# This is a plugin; it's not meant to be run directly in python.
+# Requires Python >= 3.4, Errbot >= 4.1
+
+'''
+Icinga2Bot: An Errbot plugin to connect to the Icinga2 monitoring system
+Main Functions:
+* Feed events from Icinga to a chat channel
+* Allow chat users to query the monitored state of health
+TODO: 
+* Acknowledge events in chat
+* Add comments frm chat to Icinga
+'''
+
+# Imports required by Errbot
 from errbot import BotPlugin, botcmd, arg_botcmd, webhook
+import threading
+
+# Imports for Icinga2 API connection
 import requests
 import json
+from socket import gethostbyname, gethostbyaddr, gaierror
+from urllib3.util.retry import Retry
+
+# General purpose imports
 import configparser
-import threading
 import re
 import logging
-
-from collections import OrderedDict as OD
-from socket import gethostbyname, gethostbyaddr, gaierror
 from os import path, getcwd
+from collections import OrderedDict as OD
 from time import sleep, time
 from datetime import timedelta
-from urllib3.util.retry import Retry
+
+## Logging
+# TODO: make thread-aware at debug level
 
 logging.basicConfig(filename="/var/log/errbot/icinga2bot.log")
 botlog = logging.getLogger('icinga2bot')
 botlog.setLevel(logging.INFO)
 
-## Errbot Plugin Config
+
+## Configure the Errbot Plugin
 
 # One INI file for API host and authentication, user privs.
 # There will be no defaults for users specified here, but the default
@@ -64,7 +85,31 @@ except:
 finally:
     print(getcwd())
 
-## Validity Checks
+## End Configuration
+
+
+## Utility functions
+
+# Validity Check for hostnames entered in chat
+# Props to Tim Pietzcker
+# http://stackoverflow.com/questions/2532053/validate-a-hostname-string
+def is_valid_hostname(hostname):
+    if len(hostname) > 255:
+        return False
+    if hostname[-1] == ".":
+        hostname = hostname[:-1] # strip exactly one dot from the right, if present
+    allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
+    return all(allowed.match(x) for x in hostname.split("."))
+
+# Props to tokland
+# https://stackoverflow.com/questions/4391697/find-the-index-of-a-dict-within-a-list-by-matching-the-dicts-value
+def build_dict(seq, key):
+    return dict((d[key], dict(d)) for (_, d) in enumerate(seq))
+
+## End Utility functions
+
+
+## Establish API session
 
 def i2url(host,port,version=default_server['api']):
     ''' Validate host and port, and return the API URL header '''
@@ -96,7 +141,9 @@ i2session.verify = api_ca
 i2session.headers  = {
     'Accept': 'application/json',
     }
-sess_args = requests.adapters.HTTPAdapter(max_retries = Retry(read=5, connect=10, backoff_factor=1))
+sess_args = requests.adapters.HTTPAdapter(
+    max_retries = Retry(read=5, connect=10, backoff_factor=1)
+    )
 
 try:
     i2session.mount(api_url, sess_args)
@@ -107,23 +154,6 @@ except (requests.exceptions.ConnectionError,
     sleep(5)
     pass
 
-
-## Helper functions
-
-# Props to Tim Pietzcker
-# http://stackoverflow.com/questions/2532053/validate-a-hostname-string
-def is_valid_hostname(hostname):
-    if len(hostname) > 255:
-        return False
-    if hostname[-1] == ".":
-        hostname = hostname[:-1] # strip exactly one dot from the right, if present
-    allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
-    return all(allowed.match(x) for x in hostname.split("."))
-
-# Props to tokland
-# https://stackoverflow.com/questions/4391697/find-the-index-of-a-dict-within-a-list-by-matching-the-dicts-value
-def build_dict(seq, key):
-    return dict((d[key], dict(d)) for (_, d) in enumerate(seq))
 
 # Process API json into chat-friendly strings
 
