@@ -28,19 +28,19 @@ are the people who keep the network up and your website answering queries.
 
 Sysadmin on a good day
 
-![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg&size=contain 80%)
+![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg |width=400 )
 
 +++
 
 Sysadmin on a bad day
 
-![Barely escaping zombies](http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg&size=contain)
+<img src="http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg" width-400px alt="barely escaping zombies")
 
 +++
 
 Sysadmin on a great day
 
-![Drinking coffee and reading IRC](http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif&size=contain 120%)
+![Drinking coffee and reading IRC](http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif){:width="400px"}
 
 +++
 
