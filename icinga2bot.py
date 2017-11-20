@@ -186,9 +186,9 @@ def notification(e):
     return "Notice of {0} on {1} sent to {2}".format(
       e["notification_type"], e["host"], ", ".join(e["users"]))
 
-def downservice(d):
+def downservice(e):
     try:
-        return "{0} ({1})".format(d["host_name"], d["service_name"])
+        return "{0} ({1})".format(e["host_name"], e["service_name"])
     except KeyError:
         return e["hostname"]
         
