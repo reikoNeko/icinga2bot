@@ -28,7 +28,7 @@ are the people who keep the network up and your website answering queries.
 
 Sysadmin on a good day
 
-![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg)
+![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg){width: 400px}
 
 +++
 
