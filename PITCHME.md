@@ -50,6 +50,7 @@ Sysadmin on a great day
 +++
 
 <img src="https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg" width=60% alt="Kaylee fixin' things">
+
 Engineers, not captains, make things go smooth.
 ---
 
