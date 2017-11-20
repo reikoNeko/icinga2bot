@@ -85,11 +85,11 @@ Engineers, not captains, make things go smooth.
 
 ## From Nagios to Icinga2: A Brief History
 
-* Nagios was a godsend--actually a Galstead-send--back in 1999, a web gui that showed you an overview of server health and alerted you when things were in trouble.
+* Nagios was a sysadmin's best friend starting in 1999. It had a web GUI that showed you an overview of server health and could pag eor email you when things were in trouble.
 
 +++
 
-* Not just up/down, but could apply warning threshholds.
+* It didn't just show up/down, but you could apply warning threshholds.
 
 ![Nagios status sample](http://my-plugin.de/wiki/_media/check_multi/examples/multi_feeds_passive_sample.png)
 
