@@ -47,6 +47,7 @@ Sysadmin on a great day
 
 * Really, we just want things to go smooth.
 
+<img src="https://bucket.bluegartr.com/c2c8d33c2972d149104f4111a0a1e6c3.jpg" width=60% alt="Malcolm Reynolds lookin' smooth">
 +++
 
 <img src="https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg" width=60% alt="Kaylee fixin' things">
@@ -118,7 +119,7 @@ Engineers, not captains, make things go smooth.
 
 * Provides an event stream of all the check results and state changes
 
----
++++
 
 ## JSON is wayyyy too wordy for chat.
 ```
@@ -142,7 +143,7 @@ becomes
 dbadmin has scheduled downtime for dbcow22 lasting 2 days, 
 1:00:00 because DB Tablespace Maintenance 
 ```
----
++++
 ### And here's the code that does that
 ```
 def downadd(e):
@@ -179,21 +180,19 @@ class HelloWorld(BotPlugin):
 
 * Because the shoemaker's children got no test box
 
-* <strike>One monolitic python file</strike>
-
 * But, it works.
----
++++
 ## Frankenstein says what?
 Give my creation life!
 
 <img alt="Dance, monster, dance!" src="http://uploads.neatorama.com/wp-content/uploads/2012/07/YFritz.jpg" width=60%>
 
----
++++
 ## Oops. Here come the villagers. I mean the bugs.
 
 <img alt="Reality check!" src="http://cdn.hark.com/images/000/439/892/439892/original.jpg" width=60%>
 
----
++++
 ## Monster on the move
 
 * Jabber got dropped in favor of slack -- but errbot supports both!
@@ -202,20 +201,19 @@ Give my creation life!
 
 * Bots have to be invited to rooms, so a warning gets logged but nothing tragic.
 
----
++++
 ## Got a friend, a victim, a friend!
 
 <img alt="User response" src="https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg" width=60%>
 
 Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug reports!
 
----
-
++++
 * Had to upgrade my own version of Errbot because the world had passed the original code by. ("It works on my box" is never enough.)
 * Don't assume all the world is running mysql.
 * Really, really don't assume the order of json fields.
 
----
++++
 * I still have trouble understanding Python threads.
 <img alt="Obligatory cat picture" src="https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg" width=60%>
 
@@ -229,7 +227,7 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 * Using a dedicated VM!
 
 * Seeking help
----
++++
 ## How to help
 
 * File bug reports
@@ -238,7 +236,7 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 
 * Pull requests at https://github.com/reikoNeko/icinga2bot
 
----
++++
 ## Further Reading
 
 * https://www.icinga.com/docs/icinga2/latest/doc/12-icinga2-api/
