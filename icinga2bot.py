@@ -209,7 +209,7 @@ def state(e):
     after  = e['check_result']['vars_after']
     # Prevent retry spam before parsing results
     try:
-        if after['attempt'] > 1.0:
+        if after['attempt'] < 2.0:
             return
     except:
         pass
