@@ -34,7 +34,7 @@ Sysadmin on a good day
 
 Sysadmin on a bad day
 
-<img src="http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg" width-400px alt="barely escaping zombies")
+<img src="http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg" width-400px alt="barely escaping zombies">
 
 +++
 
