@@ -26,21 +26,22 @@ Fill your conversations with interruptions about your flaky network!
 are the people who keep the network up and your website answering queries.
 +++
 
+
 Sysadmin on a good day
 
-![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg |width=400 )
+<img src="https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg" width=60% alt="Dodging bullets">
 
 +++
 
 Sysadmin on a bad day
 
-<img src="http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg" width-400px alt="barely escaping zombies">
+<img src="http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg" width=60% alt="Barely escaping zombies">
 
 +++
 
 Sysadmin on a great day
 
-![Drinking coffee and reading IRC](http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif){:width="400px"}
+<img src="http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif" width=60% alt="Drinking coffee and reading IRC">
 
 +++
 
@@ -48,8 +49,7 @@ Sysadmin on a great day
 
 +++
 
-![Kaylee fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
-
+<img src="https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg" width=60% alt="Kaylee fixin' things">
 Engineers, not captains, make things go smooth.
 ---
 
@@ -185,12 +185,12 @@ class HelloWorld(BotPlugin):
 ## Frankenstein says what?
 Give my creation life!
 
-![Dance, monster, dance!](http://uploads.neatorama.com/wp-content/uploads/2012/07/YFritz.jpg)
+<img alt="Dance, monster, dance!" src="http://uploads.neatorama.com/wp-content/uploads/2012/07/YFritz.jpg" width=60%>
 
 ---
 ## Oops. Here come the villagers. I mean the bugs.
 
-![Reality check](http://cdn.hark.com/images/000/439/892/439892/original.jpg)
+<img alt="Reality check!" src="http://cdn.hark.com/images/000/439/892/439892/original.jpg" width=60%>
 
 ---
 ## Monster on the move
@@ -204,7 +204,7 @@ Give my creation life!
 ---
 ## Got a friend, a victim, a friend!
 
-![User response](https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg)
+<img alt="User response" src="https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg" width=60%>
 
 Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug reports!
 
@@ -216,7 +216,8 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 
 ---
 * I still have trouble understanding Python threads.
-![Obligatory cat picture](https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg)
+<img alt="Obligatory cat picture" src="https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg" width=60%>
+
 ---
 ## To the future!
 
