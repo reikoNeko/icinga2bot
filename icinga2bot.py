@@ -354,14 +354,14 @@ class Icinga2bot(BotPlugin):
         botlog.debug(i2stat)
         
         # Find the number of DB queries per minute, accept multiple DB types
-        dbtype = {'IdoMysqlConnection': ("idomysqlconnection_ido-mysql_queries_1min", "MySQL")
+        dbtype = {'IdoMysqlConnection': ("idomysqlconnection_ido-mysql_queries_1min", "MySQL"),
                   'IdoPgsqlConnection': ("idomysqlconnection_ido-pgsql_queries_1min", "PostgreSQL")}
         # Implicit assumption that Icinga will une only one DB backend
         activedb = list( set(dbtype.keys()).intersection(set(i2stat.keys())) )[0]
         permin, name = dbtype[activedb]
         db_performance = build_dict(i2stat[activedb]['perfdata'], 'label')
         db_queries_string = ' '.join(
-            (str(int(db_performance[permin]['value])), name) 
+            (str(int(db_performance[permin]['value'])), name) 
             )
                                             
         try:
