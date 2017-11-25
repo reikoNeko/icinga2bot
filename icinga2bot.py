@@ -352,26 +352,38 @@ class Icinga2bot(BotPlugin):
         raw = i2session.get(api_url+"/status").json()
         i2stat = build_dict(raw["results"], 'name')
         botlog.debug(i2stat)
+        
+        # Find the number of DB queries per minute, accept multiple DB types
+        dbtype = {'IdoMysqlConnection': ("idomysqlconnection_ido-mysql_queries_1min", "MySQL")
+                  'IdoPgsqlConnection': ("idomysqlconnection_ido-pgsql_queries_1min", "PostgreSQL")}
+        # Implicit assumption that Icinga will une only one DB backend
+        activedb = list( set(dbtype.keys()).intersection(set(i2stat.keys())) )[0]
+        permin, name = dbtype[activedb]
+        db_performance = build_dict(i2stat[activedb]['perfdata'], 'label')
+        db_queries_string = ' '.join(
+            (str(int(db_performance[permin]['value])), name) 
+            )
+                                            
         try:
             R = i2stat['CIB']['status']
             for line in (
               "HOSTS     {0} Up; {1} Down; {2} Unreachable".format(
                 int(R['num_hosts_up']), 
                 int(R['num_hosts_down']), 
-                int(R['num_hosts_unreachable']) ),
+                int(R['num_hosts_unreachable'])
+                ),
               "SERVICES  {0} OK;  {1} Critical; {2} Warning; {3} Unreachable; {4} Unknown".format(
                 int(R['num_services_ok']), 
                 int(R['num_services_critical']), 
                 int(R['num_services_warning']), 
                 int(R['num_services_unreachable']), 
-                int(R['num_services_unknown']) ),
-              #"Checks per minute:  {0} hosts, {1} services, {2} database queries".format(
-                #int(R['active_host_checks_1min']), 
-                #int(R['active_service_checks_1min']),
-                #int(i2stat['results'][9]['perfdata'][1]['value']) )
-              "Checks per minute:  {0} hosts, {1} services".format(
+                int(R['num_services_unknown'])
+                ),
+              "Checks per minute:  {0} hosts, {1} services, {2} database queries".format(
                 int(R['active_host_checks_1min']), 
-                int(R['active_service_checks_1min']) )
+                int(R['active_service_checks_1min']),
+                db_queries_string
+                )
             ):
                 self.send(room,line)
         except:
