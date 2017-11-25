@@ -189,11 +189,7 @@ class HelloWorld(BotPlugin):
 ---
 ## Frankenstein says what?
 
-+++
 # IT'S ALIIIIIVE!
-
-+++
-Unless you're on Debian/Ubuntu.
 ---
 
 ## To the future!
@@ -212,7 +208,7 @@ Unless you're on Debian/Ubuntu.
 
 * Add tests
 
-* Contribute features to the "refactor" branch at https://github.com/reikoNeko/icinga2bot
+* Pull requests at https://github.com/reikoNeko/icinga2bot
 
 ---
 ## Further Reading

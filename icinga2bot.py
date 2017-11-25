@@ -1,25 +1,44 @@
+# This is a plugin; it's not meant to be run directly in python.
+# Requires Python >= 3.4, Errbot >= 4.1
+
+'''
+Icinga2Bot: An Errbot plugin to connect to the Icinga2 monitoring system
+Main Functions:
+* Feed events from Icinga to a chat channel
+* Allow chat users to query the monitored state of health
+TODO: 
+* Acknowledge events in chat
+* Add comments frm chat to Icinga
+'''
+
+# Imports required by Errbot
 from errbot import BotPlugin, botcmd, arg_botcmd, webhook
+import threading
+
+# Imports for Icinga2 API connection
 import requests
 import json
-import configparser
-import threading
-import re
-import logging
-
-from collections import OrderedDict as OD
 from socket import gethostbyname, gethostbyaddr, gaierror
-from os import path, getcwd
-from time import sleep, time
-from datetime import timedelta
 from urllib3.util.retry import Retry
 
+# General purpose imports
+import configparser
+import re
+import logging
+from os import path, getcwd
+from collections import OrderedDict as OD
+from time import sleep, time
+from datetime import timedelta
 
-# botlog.setLevel = logging.DEBUG
+## Logging
+# TODO: make thread-aware at debug level
+
 logging.basicConfig(filename="/var/log/errbot/icinga2bot.log")
 botlog = logging.getLogger('icinga2bot')
 botlog.setLevel(logging.INFO)
 
-## Errbot Plugin Config
+
+## Configure the Errbot Plugin
 
 # One INI file for API host and authentication, user privs.
 # There will be no defaults for users specified here, but the default
@@ -27,18 +46,31 @@ botlog.setLevel(logging.INFO)
 # in the INI file.
 
 default_server= OD(( 
-    ('host','localhost'), ('port', '5665'), ('api','v1'),
+    ('host','localhost'), 
+    ('port', '5665'), 
+    ('api','v1'),
     ('ca','/etc/icinga2/pki/ca.crt')
     ))
+
 # ConfigParser normally converts all options to lower case but 
 # the icinga2 API is case sentitive so we'll add optionxform below.
 default_events= OD(( 
-    ('CheckResult', 'off'), ('StateChange', 'on'), ('Notification', 'on'),
-    ('AcknowledgementSet', 'on'), ('AcknowledgementCleared', 'on'),
-    ('CommentAdded', 'on'), ('CommentRemoved', 'on'),
-    ('DowntimeAdded', 'on'), ('DowntimeRemoved', 'on'), ('DowntimeTriggered', 'on')
+    ('CheckResult', 'off'), 
+    ('StateChange', 'on'), 
+    ('Notification', 'on'),
+    ('AcknowledgementSet', 'on'), 
+    ('AcknowledgementCleared', 'on'),
+    ('CommentAdded', 'on'), 
+    ('CommentRemoved', 'on'),
+    ('DowntimeAdded', 'on'), 
+    ('DowntimeRemoved', 'on'), 
+    ('DowntimeTriggered', 'on')
     ))
-default_config = OD(( ('server',default_server), ('events',default_events) ))
+
+default_config = OD(( 
+    ('server',default_server), 
+    ('events',default_events) 
+    ))
 
 cfg = configparser.ConfigParser()
 cfg.optionxform = str  #make options case-sensitive
@@ -53,7 +85,31 @@ except:
 finally:
     print(getcwd())
 
-## Validity Checks
+## End Configuration
+
+
+## Utility functions
+
+# Validity Check for hostnames entered in chat
+# Props to Tim Pietzcker
+# http://stackoverflow.com/questions/2532053/validate-a-hostname-string
+def is_valid_hostname(hostname):
+    if len(hostname) > 255:
+        return False
+    if hostname[-1] == ".":
+        hostname = hostname[:-1] # strip exactly one dot from the right, if present
+    allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
+    return all(allowed.match(x) for x in hostname.split("."))
+
+# Props to tokland
+# https://stackoverflow.com/questions/4391697/find-the-index-of-a-dict-within-a-list-by-matching-the-dicts-value
+def build_dict(seq, key):
+    return dict((d[key], dict(d)) for (_, d) in enumerate(seq))
+
+## End Utility functions
+
+
+## Establish API session
 
 def i2url(host,port,version=default_server['api']):
     ''' Validate host and port, and return the API URL header '''
@@ -85,39 +141,38 @@ i2session.verify = api_ca
 i2session.headers  = {
     'Accept': 'application/json',
     }
-sess_args = requests.adapters.HTTPAdapter(max_retries = Retry(read=5, connect=10, backoff_factor=1))
+sess_args = requests.adapters.HTTPAdapter(
+    max_retries = Retry(read=5, connect=10, backoff_factor=1)
+    )
 
 try:
     i2session.mount(api_url, sess_args)
     botlog.info("Connected to %s.",api_url)
 except (requests.exceptions.ConnectionError,
       requests.packages.urllib3.exceptions.NewConnectionError) as drop:
-    botlog.error("No connection to Icinga API. Error received: "+str(drop))
+    botlog.error("No connection to Icinga API. Error received: {}", str(drop))
     sleep(5)
     pass
 
 
-## Helper functions
-
-# Props to Tim Pietzcker
-# http://stackoverflow.com/questions/2532053/validate-a-hostname-string
-def is_valid_hostname(hostname):
-    if len(hostname) > 255:
-        return False
-    if hostname[-1] == ".":
-        hostname = hostname[:-1] # strip exactly one dot from the right, if present
-    allowed = re.compile("(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
-    return all(allowed.match(x) for x in hostname.split("."))
-
 # Process API json into chat-friendly strings
 
+def prettyml(t):
+    '''Convert multiline strings into single punctuated line.'''
+    #botlog.debug(str("Received for prettyprinting: "+str(t)))
+    pretty = str(t).replace('\\r\\n','. ').replace('\\n','; ')
+    #botlog.debug("Converted to: "+pretty)
+    return pretty
+
 def comment(e):
+    ctext = prettyml(e["comment"]["text"])
     return "Re: {0}, {1} says: '{2}'.".format(
-      e["comment"]["host_name"], e["comment"]["author"], e["comment"]["text"])
+      e["comment"]["host_name"], e["comment"]["author"], ctext)
     
 def commentrm(e):
+    ctext = prettyml(e["comment"]["text"])
     return "Comment ({0}) removed from {1}".format(
-      e["comment"]["text"], e["comment"]["host_name"])
+      ctext, e["comment"]["host_name"])
     
 def ack(e):
     return "{0} problem on {1} acknowledged by {2}.".format(
@@ -131,9 +186,9 @@ def notification(e):
     return "Notice of {0} on {1} sent to {2}".format(
       e["notification_type"], e["host"], ", ".join(e["users"]))
 
-def downservice(d):
+def downservice(e):
     try:
-        return "{0} ({1})".format(d["host_name"], d["service_name"])
+        return "{0} ({1})".format(e["host_name"], e["service_name"])
     except KeyError:
         return e["hostname"]
         
@@ -154,7 +209,7 @@ def state(e):
     after  = e['check_result']['vars_after']
     # Prevent retry spam before parsing results
     try:
-        if after['attempt'] > 1.0:
+        if after['attempt'] < 2.0:
             return
     except:
         pass
@@ -168,8 +223,12 @@ def state(e):
 
     service = e.get("service","host")
     if not service.isupper(): service = service.title() 
+
+    result = prettyml(e["check_result"]["output"])
+
     return "{0} {1} on {2}: {3}".format(
-      service, change, e["host"], e["check_result"]["output"])
+      service, change, e["host"], result)
+
 
 def nice_event(event):
     ''' Parse json objects returned by icinga into chat-friendly text.'''
@@ -194,6 +253,7 @@ def i2events(self, events=cfg['events'], url=api_url):
     types = [ key for key in events if events.getboolean(key) and key != 'CheckResult' ]
     data = {"types": types, "queue": "errbot_events" }
     botlog.debug("in i2events, thread is "+threading.currentThread().getName())
+    cleanquote = re.compile("\\'")
 
     while not self.stop_thread.is_set():
         try:
@@ -208,7 +268,8 @@ def i2events(self, events=cfg['events'], url=api_url):
                 try:
                     for line in self.stream.iter_lines():
                         botlog.debug('in i2api_request: '+str(line))
-                        text = nice_event( json.loads(line.decode('utf-8')) )
+                        line = cleanquote.sub("",line.decode('utf-8'))
+                        text = nice_event( json.loads(line) ) 
                         if text is not None:
                             yield(text)
                 except:
@@ -225,7 +286,6 @@ def i2events(self, events=cfg['events'], url=api_url):
             return("No connection to Icinga API.")
 
 
-
 class Icinga2bot(BotPlugin):
     """
     Use errbot to talk to an Icinga2 monitoring server.
@@ -233,8 +293,8 @@ class Icinga2bot(BotPlugin):
     name = 'icinga2bot'
     
     def __init__(self, bot, name):
-     super().__init__(bot, name)
-     self.stop_thread = threading.Event()
+        super().__init__(bot, name)
+        self.stop_thread = threading.Event()
 
     def report_events(self):
         '''Relay events from the Icinga2 API to a chat channel. Not interactive.
@@ -245,7 +305,7 @@ class Icinga2bot(BotPlugin):
             for line in queue:
                 self.send(self.room,line)
                 botlog.info(line)
-                
+
     def homeroom(self):
         try:
             homeroom = self.bot_config.CHATROOM_PRESENCE[0]
@@ -289,41 +349,21 @@ class Icinga2bot(BotPlugin):
     def i2status(self, msg, args):
         '''Return a summary of host and service states.'''
         room = self.query_room(self.homeroom())
-        i2stat = i2session.get(api_url+"/status").json()
-        botlog.info(i2stat)
-        index_cib = ''
-        index_mysql = ''
-        index_pgsql = ''
+        raw = i2session.get(api_url+"/status").json()
+        i2stat = build_dict(raw["results"], 'name')
+        botlog.debug(i2stat)
+        
+        dbtype = {'IdoMysqlConnection': ("idomysqlconnection_ido-mysql_queries_1min", "MySQL")
+                  'IdoPgsqlConnection': ("idomysqlconnection_ido-pgsql_queries_1min", "PostgreSQL")}
+        activedb = activedb = list( set(rate.keys()).intersection(set(i2stat.keys())) )[0]
+        permin, name = dbtype[activedb]
+        db_performance = build_dict(i2stat[activedb]['perfdata'], 'label')
+        db_queries_string = ' '.join(
+            (str(int(db_performance[permin]['value])), name) 
+            )
+                                            
         try:
-            for i in range(len(i2stat['results'])):
-                if i2stat['results'][i]['name'] == 'CIB':
-                    index_cib = i
-                elif i2stat['results'][i]['name'] == 'IdoMysqlConnection':
-                    index_mysql = i
-                elif i2stat['results'][i]['name'] == 'IdoPgsqlConnection':
-                    index_pgsql = i
-                else:
-                    pass
-
-            db_queries = []
-            if index_mysql != '':
-                for v in range(len(i2stat['results'][index_mysql]['perfdata'])):
-                    if i2stat['results'][index_mysql]['perfdata'][v]['label'] == \
-                            'idomysqlconnection_ido-mysql_queries_1min':
-                        db_queries.append(
-                                str(i2stat['results'][index_mysql]['perfdata']
-                                    [v]['value']) + ' MySQL')
-            if index_pgsql != '':
-                for v in range(len(i2stat['results'][index_pgsql]['perfdata'])):
-                    if i2stat['results'][index_pgsql]['perfdata'][v]['label'] == \
-                            'idopgsqlconnection_ido-pgsql_queries_1min':
-                        db_queries.append(
-                                str(i2stat['results'][index_pgsql]['perfdata']
-                                    [v]['value']) + ' PostgreSQL')
-
-            db_queries_string = ' and '.join(db_queries)
-
-            R = i2stat['results'][index_cib]['status']
+            R = i2stat['CIB']['status']
             for line in (
               "HOSTS     {0} Up; {1} Down; {2} Unreachable".format(
                 int(R['num_hosts_up']), 
