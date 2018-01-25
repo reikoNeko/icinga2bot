@@ -1,5 +1,4 @@
 errbot>=5.0
-json
 requests
 configparser
-
+urllib3
