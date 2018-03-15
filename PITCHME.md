@@ -214,15 +214,20 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 * Really, really don't assume the order of json fields.
 
 +++
-* I still have trouble understanding Python threads.
+* Errbot uses threads, but good Python threading is hard.
 <img alt="Obligatory cat picture" src="https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg" width=60%>
+
++++
+* I'm not alone in that opinion. Check out Raymond Hettinger's keynote from PyBay 2017.
+[![Raymond Hettinger, Keynote on Concurrency, PyBay 2017](http://img.youtube.com/vi/9zinZmE3Ogk/0.jpg)](https://youtu.be/9zinZmE3Ogk?t=2874)
+
 
 ---
 ## To the future!
 
 * Currently refactoring to separate icinga from bot code
 
-* Writing unit tests
+* Adding acknowlegements in chat rooms.
 
 * Using a dedicated VM!
 
@@ -230,12 +235,13 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 +++
 ## How to help
 
+* Visit https://github.com/reikoNeko/icinga2bot
+
+* Try the code
+
 * File bug reports
 
-* Add tests, particularly for Jenkins
-
-* Pull requests at https://github.com/reikoNeko/icinga2bot
-
+* Make pull requests
 +++
 ## Further Reading
 
@@ -248,6 +254,6 @@ Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug repo
 
 * Penth on Freenode (in #plug, #fosscon and #lopsa)
 
-* @LinuxandYarn on Twitter
+* @LinuxandYarn on Twitter (2-3 times a week)
 
 * https://github.com/reikoNeko/icinga2bot
