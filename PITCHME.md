@@ -26,29 +26,31 @@ Fill your conversations with interruptions about your flaky network!
 are the people who keep the network up and your website answering queries.
 +++
 
+
 Sysadmin on a good day
 
-![Neo dodging bullets](https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg)
+<img src="https://i.ytimg.com/vi/ybKJOOmZfMs/maxresdefault.jpg" width=60% alt="Dodging bullets">
 
 +++
 
 Sysadmin on a bad day
 
-![Barely escaping zombies](http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg)
+<img src="http://4.bp.blogspot.com/_6Ycg6Y79jFg/TPx0pKhBSPI/AAAAAAAAAwc/e0UyoC3s5KY/s1600/Walking%2BDead.jpg" width=60% alt="Barely escaping zombies">
 
 +++
 
 Sysadmin on a great day
 
-![Drinking coffee and reading IRC](http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif)
+<img src="http://pa1.narvii.com/5669/04e096dee7a5ae3493bde3affb1eed4c81c4d089_hq.gif" width=60% alt="Drinking coffee and reading IRC">
 
 +++
 
 * Really, we just want things to go smooth.
 
+<img src="https://bucket.bluegartr.com/c2c8d33c2972d149104f4111a0a1e6c3.jpg" width=60% alt="Malcolm Reynolds lookin' smooth">
 +++
 
-![Kayle fixin' things](https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg)
+<img src="https://archetypeonlinemagazine.files.wordpress.com/2014/06/ariane179254_firefly_1x02_thetrainjob_0002-2.jpg" width=60% alt="Kaylee fixin' things">
 
 Engineers, not captains, make things go smooth.
 ---
@@ -71,7 +73,7 @@ Engineers, not captains, make things go smooth.
 
 ## Becoming Frankenstein: A Case Study
 +++
-* My team has a Jabber server we use to communicate.
+* My team had a Jabber server which we used to communicate.
 +++
 * We switched our monitoring system from Nagios to Icinga2
 +++
@@ -85,11 +87,11 @@ Engineers, not captains, make things go smooth.
 
 ## From Nagios to Icinga2: A Brief History
 
-* Nagios was a godsend--actually a Galstead-send--back in 1999, a web gui that showed you an overview of server health and alerted you when things were in trouble.
+* Nagios was a sysadmin's best friend starting in 1999. It had a web GUI that showed you an overview of server health and could pag eor email you when things were in trouble.
 
 +++
 
-* Not just up/down, but could apply warning threshholds.
+* It didn't just show up/down, but you could apply warning threshholds.
 
 ![Nagios status sample](http://my-plugin.de/wiki/_media/check_multi/examples/multi_feeds_passive_sample.png)
 
@@ -113,23 +115,11 @@ Engineers, not captains, make things go smooth.
 
 * Accepts comments and commands
 
+* Sample Python code in icinga.org documentation
+
 * Provides an event stream of all the check results and state changes
 
 +++
-
-* Sample Python code in icinga.org documentation
-
-* Wait, was that Step 2? PROFIT!
-
----
-
-## That was Step 2!
-
-But there are more steps between here and profit.
-
-![Sad_underpants_gnome](https://images.mauldineconomics.com/images/uploads/ttmygh/8499/image/Gnome%2018p_fmt.png)
-
----
 
 ## JSON is wayyyy too wordy for chat.
 ```
@@ -153,16 +143,23 @@ becomes
 dbadmin has scheduled downtime for dbcow22 lasting 2 days, 
 1:00:00 because DB Tablespace Maintenance 
 ```
++++
+### And here's the code that does that
+```
+def downadd(e):
+    d = e["downtime"]
+    duration = str(timedelta(seconds=int(
+      d["end_time"] - d["start_time"])))
+    return "{0} has scheduled downtime for {1} lasting {2} 
+      because {3}".format(
+      d["author"], downservice(d), duration, d["comment"])
+```
 ---
 ## Errbot
 
 * Errbot is written in python, has a plugin framework, and talks to multiple chat servers.
 
-* Half my work is done! PROFIT!
-+++
-s/Half/Twenty percent of/
-+++
-* But seriously, writing plugin commands is pretty easy because it's done in decorators.
+* Writing plugin commands is pretty easy because it's done in decorators.
 
 ```
 class HelloWorld(BotPlugin):
@@ -183,15 +180,44 @@ class HelloWorld(BotPlugin):
 
 * Because the shoemaker's children got no test box
 
-* One monolitic python file
-
 * But, it works.
----
++++
 ## Frankenstein says what?
+Give my creation life!
 
-# IT'S ALIIIIIVE!
+<img alt="Dance, monster, dance!" src="http://uploads.neatorama.com/wp-content/uploads/2012/07/YFritz.jpg" width=60%>
+
++++
+## Oops. Here come the villagers. I mean the bugs.
+
+<img alt="Reality check!" src="http://cdn.hark.com/images/000/439/892/439892/original.jpg" width=60%>
+
++++
+## Monster on the move
+
+* Jabber got dropped in favor of slack -- but errbot supports both!
+
+* Change the errbot config.py file to replace jabber server data with a slack API token
+
+* Bots have to be invited to rooms, so a warning gets logged but nothing tragic.
+
++++
+## Got a friend, a victim, a friend!
+
+<img alt="User response" src="https://marruda3.files.wordpress.com/2013/11/young-frankenstein-meal.jpg" width=60%>
+
+Since promoting the bot on Twitter and at Fosscon, I've gotten my first bug reports!
+
++++
+* Had to upgrade my own version of Errbot because the world had passed the original code by. ("It works on my box" is never enough.)
+* Don't assume all the world is running mysql.
+* Really, really don't assume the order of json fields.
+
++++
+* I still have trouble understanding Python threads.
+<img alt="Obligatory cat picture" src="https://orig00.deviantart.net/95a2/f/2007/014/1/f/cat_tangled_in_yarn_by_faralight.jpg" width=60%>
+
 ---
-
 ## To the future!
 
 * Currently refactoring to separate icinga from bot code
@@ -201,16 +227,16 @@ class HelloWorld(BotPlugin):
 * Using a dedicated VM!
 
 * Seeking help
----
++++
 ## How to help
 
 * File bug reports
 
-* Add tests
+* Add tests, particularly for Jenkins
 
 * Pull requests at https://github.com/reikoNeko/icinga2bot
 
----
++++
 ## Further Reading
 
 * https://www.icinga.com/docs/icinga2/latest/doc/12-icinga2-api/
