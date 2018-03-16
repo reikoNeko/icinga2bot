@@ -213,13 +213,16 @@ def state(e):
             return
     except:
         pass
-    
+
+    # https://www.icinga.com/docs/icinga2/latest/doc/08-advanced-topics/#advanced-value-types-checkresult
+    api_states=['OK', 'WARNING', 'CRITICAL', 'UNKNOWN']
+    state_text = api_states[int(state)]
     if after['state'] < before['state']:
-        change="RECOVERED"
+        change = "RECOVERED: " + state_text
     elif after['state'] > before['state']:
-        change="DEGRADED"
+        change = "DEGRADED: " + state_text
     else:
-        change="CHANGED"
+        change = state_text
 
     service = e.get("service","host")
     if not service.isupper(): service = service.title() 
