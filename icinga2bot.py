@@ -358,7 +358,7 @@ class Icinga2bot(BotPlugin):
         
         # Find the number of DB queries per minute, accept multiple DB types
         dbtype = {'IdoMysqlConnection': ("idomysqlconnection_ido-mysql_queries_1min", "MySQL"),
-                  'IdoPgsqlConnection': ("idomysqlconnection_ido-pgsql_queries_1min", "PostgreSQL")}
+                  'IdoPgsqlConnection': ("idopgsqlconnection_ido-pgsql_queries_1min", "PostgreSQL")}
         # Implicit assumption that Icinga will une only one DB backend
         activedb = list( set(dbtype.keys()).intersection(set(i2stat.keys())) )[0]
         permin, name = dbtype[activedb]
