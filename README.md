@@ -1,4 +1,4 @@
-This is a work in progress.
+This project is no longer in development. You are free to fork it for your own use.
 icinga2bot is a plugin for errbot that speaks to the Icinga2 API in order to relay messages to and from a chat channel. 
 
 ## Caveats
