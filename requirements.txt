@@ -41,7 +41,7 @@ sleekxmpp==1.3.1
 threadpool==1.3.2
 typing==3.6.2
 urllib3>=1.23
-waitress==1.0.2
+waitress==1.4.0
 WebOb==1.7.3
 websocket-client==0.44.0
 WebTest==2.0.28
