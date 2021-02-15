@@ -207,6 +207,8 @@ def downrm(e):
 def state(e):
     before = e['check_result']['vars_before']
     after  = e['check_result']['vars_after']
+    new_state = int(after['state'])
+    
     # Prevent retry spam before parsing results
     try:
         if after['attempt'] < 2.0:
@@ -216,7 +218,7 @@ def state(e):
 
     # https://www.icinga.com/docs/icinga2/latest/doc/08-advanced-topics/#advanced-value-types-checkresult
     api_states=['OK', 'WARNING', 'CRITICAL', 'UNKNOWN']
-    state_text = api_states[int(state)]
+    state_text = api_states[new_state]
     if after['state'] < before['state']:
         change = "RECOVERED: " + state_text
     elif after['state'] > before['state']:
